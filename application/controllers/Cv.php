@@ -44,9 +44,38 @@ class Cv extends CI_Controller
     {
         $id = $this->input->post('id_user');
 
-        if ($this->Model_cv->getBasicById($this->session->userdata('email')) > 0) {
-            $this->Model_cv->update_basic($id, $this->input->post());
-            redirect('CV/form_fill/' . $id);
+        if ($this->Model_cv->getBasicById($id)['id_user'] > 0) {
+            $photo = $_FILES['photo']['name'];
+
+            if ($photo = '') {
+            } else {
+
+                $config['upload_path'] = './uploads/photo';
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                $this->load->library('upload', $config);
+
+                if (!$this->upload->do_upload('photo')) {
+                    echo 'Failed to Upload Thumbnail';
+                } else {
+                    $photo = $this->upload->data('file_name');
+                }
+            }
+            $data = array(
+                'id_user' => $this->input->post('id_user'),
+                'fname' => $this->input->post('fname'),
+                'email' => $this->input->post('email'),
+                'phonenum' => $this->input->post('phonenum'),
+                'website' => $this->input->post('website'),
+                'address1' => $this->input->post('address1'),
+                'address2' => $this->input->post('address2'),
+                'address3' => $this->input->post('address3'),
+                'qualy' => $this->input->post('qualy'),
+                'interest' => $this->input->post('interest'),
+                'photo' => $photo,
+            );
+            var_dump($data);
+            $this->Model_cv->update_basic($id, $data);
+            redirect('Cv/form_fill/' . $id);
         } else {
             $photo = $_FILES['photo']['name'];
 
@@ -76,22 +105,28 @@ class Cv extends CI_Controller
                 'interest' => $this->input->post('interest'),
                 'photo' => $photo,
             );
-
             $this->Model_cv->insert_cv($data);
-            redirect('CV/form_fill' . $id);
+            redirect('Cv/form_fill/ ' . $id);
         }
     }
     public function inputWe()
     {
-        $data = array(
-            'id_user' => $this->input->post('id_user'),
-            'jobtit' => $this->input->post('jobtit'),
-            'compname' => $this->input->post('compname'),
-            'startw' => $this->input->post('startw'),
-            'endw' => $this->input->post('endw'),
-            'otherwe' => $this->input->post('otherwe'),
-        );
-        $this->Model_cv->insert_we($data);
-        redirect('CV/form_fill');
+        if ($this->Model_cv->getWeById($this->input->post('id_user'))['id_user'] > 0) {
+            $this->Model_cv->update_we($this->input->post('id_user'), $this->input->post());
+            redirect('Cv/form_fill/' . $this->input->post('id_user'));
+        } else {
+            $this->Model_cv->insert_we($this->input->post());
+            redirect('Cv/form_fill/' . $this->input->post('id_user'));
+        }
+    }
+    public function inputEdu()
+    {
+        if ($this->Model_cv->getEduById($this->input->post('id_user'))['id_user'] > 0) {
+            $this->Model_cv->update_edu($this->input->post('id_user'), $this->input->post());
+            redirect('Cv/form_fill/' . $this->input->post('id_user'));
+        } else {
+            $this->Model_cv->insert_edu($this->input->post());
+            redirect('Cv/form_fill/' . $this->input->post('id_user'));
+        }
     }
 }

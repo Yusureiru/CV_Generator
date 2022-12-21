@@ -38,6 +38,7 @@
           </div>
           <div class="tab-content p-3 border border-dark shadow-lg" style="width: 100%; min-height: 50vh" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+              <!-- start basic -->
               <div class="row">
                 <h4>Basic Information</h4>
               </div>
@@ -109,7 +110,8 @@
                 <button type="submit" class="btn btn-primary">Simpan</button>
               </form>
             </div>
-
+            <!-- end of basic -->
+            <!-- start work  -->
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
               <div class="row">
                 <h4>Work Experience</h4>
@@ -147,21 +149,24 @@
                     </div>
                     <label for="wetarea" class="form-label">Other information</label>
                     <textarea class="form-control" name="otherwe" id="wetarea" rows="5"></textarea>
-                    <?php foreach ($id as $id_user) { ?>
+                    <input type="hidden" name="id_user" value="<?= $id ?>">
+                    <?php foreach ($id_users as $id_user) { ?>
                       <input type="hidden" name="id_user" value="<?= $id_user->id ?>">
                     <?php } ?>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary mt-2">Simpan</button>
                   </form>
                 </div>
               </div>
             </div>
+            <!-- end of work -->
+            <!-- start of edu -->
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
               <div class="row">
                 <h4>Education</h4>
               </div>
               <div class="sets2">
                 <div class="set">
-                  <form method="POST" enctype="multipart/form-data" action="<?= base_url('Cv/inputWe') ?>" id="f3">
+                  <form method="POST" action="<?= base_url('Cv/inputEdu') ?>" id="f3">
                     <div class="row">
                       <div class="col-6">
                         <div class="mb-3">
@@ -192,10 +197,15 @@
                     </div>
                     <label for="etarea" class="form-label">Other information</label>
                     <textarea class="form-control" name="otheredu" id="etarea" rows="5"></textarea>
+                    <?php foreach ($id_users as $id_user) { ?>
+                      <input type="hidden" name="id_user" value="<?= $id_user->id ?>">
+                    <?php } ?>
+                    <button type="submit" class="btn btn-primary mt-2">Simpan</button>
                   </form>
                 </div>
               </div>
             </div>
+            <!-- end of edu -->
           </div>
         </div>
       </div>

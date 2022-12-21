@@ -15,7 +15,9 @@ class User extends CI_Controller
     {
         $data = array(
             'title' => 'CV Result',
-            'basic' => $this->Model_cv->getDataCv($id)
+            'basic' => $this->Model_cv->getDataCv($id),
+            'works' => $this->Model_cv->getWe($id),
+            'edus' => $this->Model_cv->getEdu($id)
         );
         $this->load->view('Resultcv', $data);
     }
