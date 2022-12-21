@@ -1,20 +1,22 @@
-<?php 
+<?php
 class Auth extends CI_Controller
 {
-    public function login(){
-        $data=array(
-            'title'=>'Login',
-            'content'=>'Login'
+    public function login()
+    {
+        $data = array(
+            'title' => 'Login',
+            'content' => 'Login'
         );
         $this->load->view('templates_login/wrapper.php', $data);
     }
-    public function check_login(){
+    public function check_login()
+    {
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         if ($this->form_validation->run() == false) {
-            $data=array(
-                'title'=>'Login',
-                'content'=>'Login'
+            $data = array(
+                'title' => 'Login',
+                'content' => 'Login'
             );
             $this->load->view('templates_login/wrapper.php', $data);
         } else {
@@ -30,12 +32,13 @@ class Auth extends CI_Controller
             }
         }
     }
-    public function signup(){
+    public function signup()
+    {
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         if ($this->form_validation->run() == false) {
-            $data=array(
+            $data = array(
                 'title' => 'Signup',
                 'content' => 'Signup'
             );
@@ -50,9 +53,9 @@ class Auth extends CI_Controller
             redirect('Auth/login');
         }
     }
-    public function logout(){
+    public function logout()
+    {
         $this->session->sess_destroy();
         redirect('Auth/login');
     }
 }
-?>
