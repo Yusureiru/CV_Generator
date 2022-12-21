@@ -80,8 +80,8 @@
           <div class="row">
             <div class="col-md-6">
               <h5>Course Name</h5>
-              <h4><?= $edu->cname; ?></h4>
-              <p>Institution Name</p>
+              <h5><?= $edu->cname; ?></h5>
+              <p><?= $edu->iname; ?></p>
             </div>
             <div class="col-md-6">
               <h5>Stard Date - End Date</h5>
@@ -90,7 +90,6 @@
           </div>
           <ul>
             <li>
-              <p><?= $edu->iname; ?></p>
               <p><?= $edu->otheredu ?></p>
             </li>
           </ul>
